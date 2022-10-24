@@ -25,12 +25,17 @@ public class IncreaseMinionsAge {
         final PreparedStatement minionsNamesToLowercase = connection.prepareStatement(UPDATE_MINIONS_NAME_TO_LOWERCASE);
         final PreparedStatement minionsAgePlusOne = connection.prepareStatement(UPDATE_MINIONS_AGE_PLUS_ONE);
 
+        connection.setAutoCommit(false);
+
         for (int index = 0; index < minionsID.length; index++) {
+            connection.setAutoCommit(false);
             minionsNamesToLowercase.setInt(1, minionsID[index]);
             minionsNamesToLowercase.executeUpdate();
             minionsAgePlusOne.setInt(1, minionsID[index]);
             minionsAgePlusOne.executeUpdate();
         }
+
+        connection.commit();
 
         final PreparedStatement allMinionsWithAge = connection.prepareStatement(GET_ALL_MINIONS_WITH_AGE);
         final ResultSet resultSet = allMinionsWithAge.executeQuery();
