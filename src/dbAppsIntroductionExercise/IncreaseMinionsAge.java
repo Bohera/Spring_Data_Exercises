@@ -28,7 +28,6 @@ public class IncreaseMinionsAge {
         connection.setAutoCommit(false);
 
         for (int index = 0; index < minionsID.length; index++) {
-            connection.setAutoCommit(false);
             minionsNamesToLowercase.setInt(1, minionsID[index]);
             minionsNamesToLowercase.executeUpdate();
             minionsAgePlusOne.setInt(1, minionsID[index]);
